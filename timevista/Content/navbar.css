@@ -1,0 +1,92 @@
+﻿/* Styles for the navigation bar */
+body {
+    background: rgb(225, 206, 236);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+nav {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    z-index: 99;
+    border-radius: 10px;
+}
+
+.nav_content {
+    max-width: 1200px;
+    margin: auto;
+    padding: 1.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav .logo a {
+    font-size: 2rem;
+    color: #816bf2;
+    transition: 0.3s;
+}
+
+    nav .logo a:hover {
+        color: #6e5ecb;
+    }
+
+nav .checkbox {
+    display: none;
+}
+
+nav input {
+    display: none;
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    list-style: none;
+    transition: left 0.3s;
+}
+
+ul li a {
+    padding: 0.5rem 1rem;
+    border: 2px solid transparent;
+    font-weight: 600;
+    color: #1f2937;
+    transition: 0.3s;
+}
+
+    ul li a:hover {
+        border-bottom-color: #1f3160;
+        color: #1f3160;
+    }
+
+/* Media Query for smaller screens */
+@media (max-width: 750px) {
+    nav .checkbox {
+        display: block;
+    }
+
+    ul {
+        position: absolute;
+        width: 100%;
+        height: calc(100vh - 85px);
+        left: -100%;
+        top: 85px;
+        background-color: #faf5ff;
+        flex-direction: column;
+        justify-content: center;
+        gap: 3rem;
+    }
+
+    nav #check:checked ~ ul {
+        left: 0;
+    }
+
+    ul li a {
+        font-size: 1.25rem;
+    }
+}
