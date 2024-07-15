@@ -1,0 +1,125 @@
+﻿@model TimeVista2._0.Models.tbl_employee
+
+@{
+    ViewBag.Title = "Create Employee";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Adjust the layout path if needed
+}
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Create Employee</h4>
+                    </div>
+                    <div class="card-body">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.employee_id, htmlAttributes: new { @class = "control-label" })
+                                        <input type="text" class="form-control" name="employee_id" value="@(ViewBag.EmpId ?? 1)" disabled />
+                                        @Html.ValidationMessageFor(model => model.employee_id, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.first_name, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.first_name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.first_name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.last_name, htmlAttributes: new { @class = "control-label" })
+                                        <input class="form-control" type="text" name="last_name" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label" })
+                                        <input class="form-control" type="text" name="username" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.emailid, htmlAttributes: new { @class = "control-label" })
+                                        <input class="form-control" type="email" name="emailid" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label" })
+                                        <input class="form-control" type="password" name="password" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.dob, htmlAttributes: new { @class = "control-label" })
+                                        <input class="form-control" type="text" name="dob" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownListFor(model => model.gender, new SelectList(new[] { "Male", "Female" }), "Select Gender", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.joining_date, htmlAttributes: new { @class = "control-label" })
+                                        <div class="cal-icon">
+                                            <input class="form-control datetimepicker" type="text" name="joining_date" required />
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.joining_date, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label" })
+                                        <input class="form-control" type="text" name="phone" required />
+                                        @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.shift, htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownListFor(model => model.shift, new SelectList(ViewBag.Shifts, "id", "ShiftDisplay"), "Select Shift", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.shift, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.department, htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownListFor(model => model.department, new SelectList(ViewBag.Departments, "id", "department_name"), "Select Department", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.department, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Create Employee</button>
+                                <a href="@Url.Action("Index", "tbl_employee")" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script>
+        $(function () {
+            $('.datetimepicker').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+        });
+    </script>
+}

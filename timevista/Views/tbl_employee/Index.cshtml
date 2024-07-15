@@ -1,0 +1,95 @@
+﻿@model IEnumerable<TimeVista2._0.Models.tbl_employee>
+@{
+    ViewBag.Title = "Employees";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .page-title {
+            margin-top: 40px; /* Adjust margin bottom as needed */
+        }
+
+        .btn-add-employee {
+            margin-top: 40px; /* Adjust margin top as needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-wrapper">
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="page-title">Employees</h4>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="@Url.Action("Create", "tbl_employee")" class="btn btn-primary btn-add-employee"><i class="fa fa-plus"></i> Add Employee</a>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Username</th>
+                                                <th>Email</th>
+                                                <th>Mobile</th>
+                                                <th>Department</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var employee in Model)
+                                            {
+                                                <tr>
+                                                    <td>@employee.first_name @employee.last_name</td>
+                                                    <td>@employee.username</td>
+                                                    <td>@employee.emailid</td>
+                                                    <td>@employee.phone</td>
+                                                    <td>@employee.department</td>
+                                                    <td>
+                                                        @if (employee.status == 1)
+                                                        {
+                                                            <span class="badge badge-success">Active</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge badge-secondary">Inactive</span>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <a href="@Url.Action("Edit", "tbl_employee", new { id = employee.id })" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i> Edit</a>
+                                                        <a href="@Url.Action("Delete", "tbl_employee", new { id = employee.id })" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<TimeVista2._0.Models.tbl_department>
+
+@{
+    ViewBag.Title = "Departments";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Adjust layout path as needed
+}
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="page-title">Departments</h4>
+            </div>
+            <div class="col-md-6 text-right">
+                @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Department ID</th>
+                                        <th>Department Name</th>
+                                        <th>Status</th>
+                                        <th>Created At</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var department in Model)
+                                    {
+                                        <tr>
+                                            <td>@department.department_id</td>
+                                            <td>@department.department_name</td>
+                                            <td>@(department.status == 1 ? "Active" : "Inactive")</td>
+                                            <td>@department.created_at.ToShortDateString()</td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = department.id }, new { @class = "btn btn-sm btn-info" })
+                                                 @Html.ActionLink("Delete", "Delete", new { id = department.id }, new { @class = "btn btn-sm btn-danger" })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Include any necessary scripts -->
+}

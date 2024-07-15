@@ -1,0 +1,72 @@
+﻿@model IEnumerable<TimeVista2._0.Models.tbl_attendance>
+
+@{
+    ViewBag.Title = "Attendance";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Adjust layout path as needed
+}
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="page-title">Attendance Records</h4>
+            </div>
+            
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Employee ID</th>
+                                        <th>Department</th>
+                                        <th>Shift</th>
+                                        <th>Location</th>
+                                        <th>Message</th>
+                                        <th>Date</th>
+                                        <th>Check-In</th>
+                                        <th>In Status</th>
+                                        <th>Check-Out</th>
+                                        <th>Out Status</th>
+                                        <th>Created At</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var attendance in Model)
+                                    {
+                                        <tr>
+                                            <td>@attendance.employee_id</td>
+                                            <td>@attendance.department</td>
+                                            <td>@attendance.shift</td>
+                                            <td>@attendance.location</td>
+                                            <td>@attendance.message</td>
+                                            <td>@attendance.date</td>
+                                            <td>@attendance.check_in</td>
+                                            <td>@attendance.in_status</td>
+                                            <td>@attendance.check_out</td>
+                                            <td>@attendance.out_status</td>
+                                            <td>@attendance.created_at</td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = attendance.id }, new { @class = "btn btn-sm btn-info" })
+                                                 @Html.ActionLink("Delete", "Delete", new { id = attendance.id }, new { @class = "btn btn-sm btn-danger" })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Include any necessary scripts -->
+}

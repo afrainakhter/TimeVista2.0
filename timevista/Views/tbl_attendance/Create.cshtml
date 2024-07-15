@@ -1,0 +1,178 @@
+﻿@model TimeVista2._0.Models.tbl_attendance
+
+@{
+    Layout = null; // Setting layout to null
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Attendance Record - Employee Attendance Management System</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <!-- Include your custom stylesheets here -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/style2.css">
+    <style>
+        /* Add your custom styles here */
+        body {
+            background-color: #bec6d8;
+        }
+
+        .container {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Customize form styles as needed */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0069d9;
+                border-color: #0062cc;
+            }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+                border-color: #545b62;
+            }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="header-center">
+                <a href="@Url.Action("Index", "Home")" class="logo">
+                    <img src="~/img/tvlogo.png" width="30" alt="TimeVista" />
+                    <span>TimeVista</span>
+                </a>
+            </div>
+            <div>
+                <a href="@Url.Action("Logout", "Home")" class="btn btn-danger">Logout</a> <!-- Logout link for employees -->
+            </div>
+        </div>
+
+        <!-- Sidebar Section -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="activee">
+                            @Html.ActionLink("Dashboard", "EmployeeDashboard", "Home", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="activee">
+                            @Html.ActionLink("Attendance", "Create", "tbl_attendance", new { area = "" }, new { @class = "nav-link" }) <!-- Link to Attendance -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Section -->
+        <div class="body-content">
+            <div class="container">
+                <h2>Create Attendance Record</h2>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.employee_id, htmlAttributes: new { @class = "control-label" })
+                                <input type="text" class="form-control" name="employee_id" value="@(ViewBag.EmployeeId ?? 1)" disabled />
+                                @Html.ValidationMessageFor(model => model.employee_id, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.department, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(model => model.department, new SelectList(ViewBag.Departments, "id", "department_name"), "Select Department", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.department, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.shift, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(model => model.shift, new SelectList(ViewBag.Shifts, "id", "ShiftDisplay"), "Select Shift", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.shift, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.message, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.message, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.message, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.date, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.check_in, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.check_in, new { htmlAttributes = new { @class = "form-control timepicker" } })
+                                @Html.ValidationMessageFor(model => model.check_in, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <!-- Add more fields as needed -->
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Create Attendance Record</button>
+                        @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Employee Attendance Management System</p>
+        </footer>
+    </div>
+
+    <!-- Scripts Section -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script>
+        $(function () {
+            $('.datepicker').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+
+            $('.timepicker').datetimepicker({
+                format: 'HH:mm:ss'
+            });
+        });
+    </script>
+</body>
+</html>
